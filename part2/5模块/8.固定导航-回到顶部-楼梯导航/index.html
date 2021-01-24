@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      margin: 0 auto;
+    }
+
+    header {
+      width: 1200px;
+      height: 80px;
+      background-color: sandybrown;
+    }
+
+    main {
+      width: 1200px;
+      /* height: 3000px; */
+      background-color: skyblue;
+    }
+
+    .banner {
+      width: 1200px;
+      height: 400px;
+      background-color: yellowgreen;
+    }
+
+    .nav {
+      width: 1200px;
+      height: 50px;
+      line-height: 50px;
+      background-color: brown;
+      color: #fff;
+    }
+
+    .content {
+      width: 1200px;
+      height: 300px;
+    }
+
+    .content:nth-child(even) {
+      background-color: #bfa;
+    }
+
+    footer {
+      width: 1200px;
+      height: 80px;
+      background-color: darkkhaki;
+    }
+
+    .active {
+      position: fixed;
+      top: 0;
+    }
+
+    .subnav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      margin-top: -120px;
+      list-style: none;
+      display: none;
+    }
+
+    .subnav li {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      text-align: center;
+      line-height: 25px;
+      color: #bbb;
+      background-color: #ccc;
+      cursor: pointer;
+    }
+
+    .subnav li:hover,
+    .subnav .current {
+      color: #000;
+    }
+
+    .backTop {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header></header>
+  <main>
+    <div class="banner"></div>
+    <div class="nav">
+      <h2>nav导航栏</h2>
+    </div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="louceng">
+      <div class="content lc jia">
+        <h1>家用电器</h1>
+      </div>
+      <div class="content lc dian">
+        <h1>电脑办公</h1>
+      </div>
+      <div class="content lc ju">
+        <h1>居家家具</h1>
+      </div>
+      <div class="content lc fu">
+        <h1>服饰鞋包</h1>
+      </div>
+    </div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+  </main>
+  <footer></footer>
+  <ul class="subnav">
+    <li>家用电器</li>
+    <li>电脑办公</li>
+    <li>居家家具</li>
+    <li>服饰鞋包</li>
+  </ul>
+  <input type="button" value="返回顶部" class="backTop">
+</body>
+<script src="js/Jquery1.12.4.js"></script>
+<!-- <script src="js/index.js"></script> -->
+<script src="js/index2.js"></script>
+</html>

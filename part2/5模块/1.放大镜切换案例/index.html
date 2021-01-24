@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul,
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      position: relative;
+      width: 500px;
+      height: auto;
+      background-color: #bfa;
+    }
+
+    .box .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box .left .bottom ul {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box .right {
+      position: absolute;
+      top: 0;
+      left: 510px;
+      width: 600px;
+      height: 600px;
+      overflow: hidden;
+    }
+
+    .active {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="left">
+      <div class="top">
+        <img src="./img/m1.jpg" alt="">
+      </div>
+      <div class="bottom">
+        <ul>
+          <li class="active"><img src="./img/s1.jpg" msrc="m1.jpg" bsrc="b1.jpg" alt=""></li>
+          <li><img src="./img/s2.jpg" msrc="m2.jpg" bsrc="b2.jpg" alt=""></li>
+          <li><img src="./img/s3.jpg" msrc="m3.jpg" bsrc="b3.jpg" alt=""></li>
+        </ul>
+      </div>
+    </div>
+    <div class="right">
+      <img src="./img/b1.jpg" alt="">
+    </div>
+  </div>
+</body>
+<script src="./Jquery1.12.4.js"></script>
+<script>
+  var $imgs = $('.bottom ul li img');
+  var $msrc = $('.left .top img');
+  var $bsrc = $('.right img');
+  $imgs.mouseenter(function() {
+    $(this).parent().addClass('active').siblings().removeClass('active');
+    var path = 'img/';
+    var msrc = path + $(this).attr('msrc');
+    var bsrc = path + $(this).attr('bsrc');
+
+    $msrc.attr('src', msrc);
+    $bsrc.attr('src', bsrc);
+  })
+</script>
+
+</html>

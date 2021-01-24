@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 1200px;
+      height: 400px;
+      border: 2px solid skyblue;
+      margin: 100px auto;
+      overflow: hidden;
+    }
+
+    .box ul {
+      width: 1300px;
+      list-style: none;
+    }
+
+    .box ul li {
+      float: left;
+      width: 240px;
+      height: 400px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+</body>
+<script src="js/Jquery1.12.4.js"></script>
+<script>
+  var arr = ['fq1.jpg', 'fq2.jpg', 'fq3.jpg', 'fq4.jpg', 'fq5.jpg'];
+  var path = 'img/';
+  var during = 1000;
+  $lis = $('.box ul li');
+  $lis.each(function (i) {
+    var url = 'url(' + path + arr[i] + ')';
+    $(this).css('background-image', url);
+  })
+
+  $lis.mouseenter(function () {
+    $(this).stop(true).animate({ 'width': 800 }, during)
+      .siblings().stop(true).animate({ 'width': 100 }, during)
+  })
+
+  $('.box').mouseleave(function() {
+    $lis.stop(true).animate({'width': 240}, during)
+  })
+</script>
+
+</html>

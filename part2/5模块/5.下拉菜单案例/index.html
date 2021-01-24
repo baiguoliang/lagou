@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: 330px;
+      height: 30px;
+      margin: 100px auto 0;
+      padding-left: 10px;
+      background-color: skyblue;
+    }
+    .wrap li {
+      background-color: #bbffaa;
+    }
+    .wrap>ul>li {
+      position: relative;
+      float: left;
+      margin-right: 10px;
+    }
+    .wrap a {
+      display: block;
+      width: 100px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      color: #000;
+    }
+    .wrap li ul {
+      position: absolute;
+      top: 30px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <ul id="menu">
+      <li>
+        <a href="javascript:void(0);">一级标题1</a>
+        <ul>
+          <li><a href="javascript:void(0);">二级标题11</a></li>
+          <li><a href="javascript:void(0);">二级标题12</a></li>
+          <li><a href="javascript:void(0);">二级标题13</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="javascript:void(0);">一级标题2</a>
+        <ul>
+          <li><a href="javascript:void(0);">二级标题21</a></li>
+          <li><a href="javascript:void(0);">二级标题22</a></li>
+          <li><a href="javascript:void(0);">二级标题23</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="javascript:void(0);">一级标题3</a>
+        <ul>
+          <li><a href="javascript:void(0);">二级标题31</a></li>
+          <li><a href="javascript:void(0);">二级标题32</a></li>
+          <li><a href="javascript:void(0);">二级标题33</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="js/Jquery1.12.4.js"></script>
+<script>
+  var $lis = $('.wrap #menu > li');
+  $lis.mouseenter(function() {
+    $(this).children('ul').stop(true).slideDown()
+  })
+  $lis.mouseleave(function() {
+    $(this).children('ul').stop().slideUp()
+  })
+</script>
+</html>
