@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>留言板</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <div class="main">
+    <div class="post">
+      <h2>新年快乐</h2>
+      <p class="author">楼主: 一个大水杯</p>
+      <p class="txt">我们一般认为，抓住了问题的关键，其他一切则会迎刃而解。</p>
+    </div>
+    <div class="reply">
+      <h4>发表回复</h4>
+      <p>用户名: <input type="text" class="user"></p>
+      <textarea class="editor"></textarea>
+      <input type="button" value="发表" class="btn">
+    </div>
+    <div class="cmts">
+      <ul class="list"></ul>
+    </div>
+  </div>
+</body>
+<script src="js/Jquery1.12.4.js"></script>
+<script src="js/art-template.js"></script>
+<!-- 创建模板 -->
+<script id="tem" type="text/html">
+  <% for(var i = 0; i < comments.length; i++) { %>
+    <li uid="<%= comments[i].id %>">
+      <p class="floor"><%= comments[i].id %>楼<a href="javascript:;" class="delete">删除</a></p>
+      <p class="author">层主: <span class="name"><%= comments[i].username %></span></p>
+      <p class="content"><%= comments[i].content %></p>
+    </li>
+  <% } %>
+</script>
+<script>
+  // 获取数据
+  var $list = $(".cmts .list");
+  var $user = $(".reply .user");
+  var $editor = $(".reply .editor");
+  var $btn = $(".reply .btn");
+  // 获取后台数据
+  $.ajax({
+    url: "http://localhost:3000/db",
+    type: "GET",
+    success: function (data) {
+      $list.html(template("tem", data));
+      // 点击按钮删除
+      deleteData();
+    }
+  })
+
+  // 添加新数据
+  $btn.click(function () {
+    var username = $user.val();
+    var content = $editor.val();
+    $.ajax({
+      url: "http://localhost:3000/comments",
+      type: "POST",
+      dataType: "json",
+      data: { username: username, content: content },
+      success: function (data) {
+        $list.append(template("tem", { "comments": [data] }));
+        // 清空输入
+        $user.val("");
+        $editor.val("");
+        deleteData();
+      }
+    })
+  })
+  // 定义删除函数
+  function deleteData() {
+    // 删除功能
+    $(".cmts .list li .delete").click(function () {
+      var $li = $(this).parents("li");
+      var index = $li.attr("uid");
+      $.ajax({
+        url: "http://localhost:3000/comments/" + index,
+        type: "DELETE"
+      })
+      // 从DOM中删除对应的li
+      $li.remove();
+    })
+  }
+</script>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    input {
+      border: none;
+      outline: none;
+    }
+
+    .box {
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    .box .search-box {
+      float: left;
+      width: 400px;
+      border: 2px solid skyblue;
+      box-sizing: border-box;
+    }
+
+    .box .search-box .txt {
+      width: 100%;
+      height: 46px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .box .search-box ul li {
+      width: 100%;
+      padding: 0 10px;
+      box-sizing: border-box;
+      line-height: 36px;
+    }
+
+    .box .btn {
+      float: left;
+      width: 100px;
+      height: 50px;
+      background-color: skyblue;
+      color: #fff;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="search-box">
+      <input type="text" class="txt">
+      <ul class="suggest-list"></ul>
+    </div>
+    <input type="button" value="360搜索" class="btn">
+  </div>
+</body>
+<script src="js/Jquery1.12.4.js"></script>
+<script src="js/art-template.js"></script>
+<script id="tem" type="text/html">
+  <% for (var i = 0; i < result.length; i++) { %>
+    <li><%= result[i].word %></li>
+  <% } %>
+</script>
+<script>
+  // 获取元素
+  var $txt = $(".txt");
+  var $ul = $(".suggest-list");
+  // 输入框添加事件
+  $txt.keyup(function () {
+    var keyword = $(this).val();
+    $.ajax({
+      url: "https://sug.so.360.cn/suggest",
+      dataType: "jsonp",
+      // jsonp: "cb",
+      data: { "word": keyword },
+      success: function (data) {
+        console.log(data);
+        // var arr = data.result;
+        // var str = "";
+        // for(var i = 0; i < arr.length; i++) {
+        //   str += `<li>${arr[i].word}</li>`;
+        // }
+        $ul.html(template("tem", data))
+      }
+    })
+  })
+</script>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "username": "刘备",
+      "content": "匡扶汉室"
+    },
+    {
+      "id": 2,
+      "username": "关羽",
+      "content": "大哥说得对"
+    },
+    {
+      "username": "张飞",
+      "content": "二哥说得对",
+      "id": 3
+    }
+  ]
+}
