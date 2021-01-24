@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      position: relative;
+      width: 350px;
+      height: 350px;
+      margin: 100px;
+      border: 1px solid #ccc;
+    }
+
+    .big {
+      position: absolute;
+      top: 0;
+      left: 360px;
+      width: 400px;
+      height: 400px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      display: none;
+    }
+
+    .big img {
+      position: absolute;
+    }
+
+    .mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 175px;
+      height: 175px;
+      background: rgba(255, 255, 0, 0.4);
+      cursor: move;
+      display: none;
+    }
+
+    .small {
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box" id="box">
+    <div class="small">
+      <img src="./img/small.jpg" width="350" alt="">
+      <div class="mask"></div>
+    </div>
+    <div class="big">
+      <img src="./img/big.jpg" width="800" alt="">
+    </div>
+  </div>
+
+  <script>
+    var box = document.getElementById('box')
+    var smallBox = box.children[0]
+    var bigBox = box.children[1]
+
+    var smallImage = smallBox.children[0]
+    var mask = smallBox.children[1]
+    var bigImage = bigBox.children[0]
+
+    // 1.鼠标经过的时候显示 maxk 和 bigBox，鼠标离开后隐藏
+    // mouseenter   mouseleave     不会触发事件冒泡
+    // mouseover   mouseout        会触发事件冒泡
+    box.onmouseenter = function () {
+      // 显示 mask 和 bigBox
+      mask.style.display = 'block'
+      bigBox.style.display = 'block'
+    }
+
+    box.onmouseleave = function () {
+      // 隐藏 mask 和 bigBox
+      mask.style.display = 'none'
+      bigBox.style.display = 'none'
+    }
+
+    // 2.当鼠标在盒子中移动的时候，让mask和鼠标一起移动
+    box.onmousemove = function (e) {
+      e = e || window.event
+      // 获取鼠标在元素中的位置，mask的坐标
+      var maskX = e.pageX - box.offsetLeft
+      var maskY = e.pageY - box.offsetTop
+
+      // 让鼠标出现在mask的中心点
+      maskX = maskX - mask.offsetWidth / 2
+      maskY = maskY - mask.offsetHeight / 2
+      
+      // 把mask限制在box中，不能让坐标小于0
+      maskX = maskX < 0 ? 0 : maskX
+      maskY = maskY < 0 ? 0 : maskY
+
+      // mask最大能移动的距离
+      var maskMaxX = box.offsetWidth - mask.offsetWidth
+      var maskMaxY = box.offsetHeight - mask.offsetHeight
+
+      // 限制mask坐标的最大值
+      maskX = maskX > maskMaxX ? maskMaxX : maskX
+      maskY = maskY > maskMaxY ? maskMaxY : maskY
+
+      mask.style.left = maskX + 'px'
+      mask.style.top = maskY + 'px'
+
+      // 3.当mask移动时，让大图片移动
+      // 求大图片移动的距离
+      // mask移动的距离 / mask最大能移动的距离 = 大图片移动的距离 / 大图片最大能移动的距离
+
+      // 大图片最大能移动的距离
+      var bigImageMax = bigImage.offsetWidth - bigBox.offsetWidth
+
+      var bigImageX = bigImageMax *  maskX / maskMaxX
+      var bigImageY = bigImageMax *  maskY / maskMaxY
+
+      bigImage.style.left = -bigImageX + 'px'
+      bigImage.style.top = -bigImageY + 'px'
+    }
+  </script>
+</body>
+
+</html>
